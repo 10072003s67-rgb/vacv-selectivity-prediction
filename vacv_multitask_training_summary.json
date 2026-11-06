@@ -1,0 +1,13 @@
+{
+  "rows": 2356,
+  "unique_molecules": 1201,
+  "endpoint_counts": {
+    "CC50": 1674,
+    "EC50": 405,
+    "IC50": 236,
+    "SI": 41
+  },
+  "excluded_competition_structures": 837,
+  "rdkit_version": "2024.09.6",
+  "warning": "SI rows are provisional derived labels. Model CC50, IC50, EC50 separately. Do not treat IC50/EC50/CC50 as SI or merge endpoint values. Competition train/test were used only to exclude molecule overlap and are not published."
+}
