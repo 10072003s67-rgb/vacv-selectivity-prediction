@@ -80,3 +80,15 @@ python scripts/predict.py
 
 Сбор внешних данных предусмотрен постановкой. Разрешение на внешние предобученные веса отдельно не подтверждено, поэтому они не являются необходимой частью базового решения. Условия каждого внешнего источника фиксируются отдельно; доступность статьи не означает разрешения перепубликовывать весь её текст или данные без проверки лицензии. Публичный репозиторий не заменяет требуемую правилами Kaggle публикацию кода на форуме или в notebook соревнования, если код решено открыть другим участникам во время соревнования.
 
+
+## Expanded public VACV activity pool
+
+`external/chembl_vacv_activities.csv` contains **4,935** activity records for Vaccinia virus targets CHEMBL613493 and CHEMBL613168, covering **3,594** distinct ChEMBL molecules. Each row includes a canonical SMILES, activity type/value/unit, assay ID, document ID and ChEMBL link. The download is reproducible with `python scripts/download_chembl_vacv.py`; counts by measurement are in `external/chembl_vacv_summary.json`. Source: [ChEMBL activity API](https://www.ebi.ac.uk/chembl/api/data/activity.json?target_chembl_id=CHEMBL613493&limit=1).
+
+**These are not 4,935 extra SI labels.** Only 4 rows are explicitly typed `Selectivity index`; the rest include IC50, EC50, MIC and other endpoints. They are retained as a transparent search pool for matching potency and toxicity under comparable conditions. Do not concatenate the pool with competition training labels. The earlier 12 literature candidates likewise remain under review, not accepted training rows.
+
+## CC50 matched to VACV publications
+
+`external/chembl_cc50_same_molecule_publication.csv` contains **4,457 CC50 measurement rows** for molecules measured against VACV in the **same ChEMBL publication**. The full query found 5,448 CC50 rows across 277 VACV publications; 4,457 match both molecule and document. `external/chembl_cc50_vacv_pair_candidates.csv` lists **340 exact-valued nM potency/CC50 pair candidates** for 192 molecules. See `external/chembl_cc50_summary.json` and reproduce with `python scripts/download_chembl_cc50.py`. [ChEMBL API documentation](https://chembl.gitbook.io/chembl-interface-documentation/web-services/chembl-data-web-services).
+
+Every candidate has `review_status=review_cell_line_assay_and_leakage`. Publication and molecule matching alone do not establish comparable cell lines or assay conditions. **Zero new SI training rows have been accepted** from these pairs. Check those conditions and competition overlap before computing CC50/IC50 (or an appropriate EC50 ratio).

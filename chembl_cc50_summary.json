@@ -1,0 +1,10 @@
+{
+  "source": "ChEMBL activity API",
+  "vacv_documents": 277,
+  "all_cc50_rows_in_vacv_publications": 5448,
+  "cc50_rows_same_molecule_and_publication": 4457,
+  "exact_nM_potency_cc50_pair_candidates": 340,
+  "unique_molecules_with_pair_candidates": 192,
+  "accepted_SI_training_rows": 0,
+  "caution": "Pair candidates are not SI labels. Verify same cell line, assay conditions, units, structure and absence of train/test leakage before calculating SI."
+}
