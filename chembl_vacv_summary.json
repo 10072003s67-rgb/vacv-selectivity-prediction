@@ -1,0 +1,41 @@
+{
+  "source": "ChEMBL API",
+  "targets": [
+    "CHEMBL613493",
+    "CHEMBL613168"
+  ],
+  "total_activity_rows": 4935,
+  "unique_molecules": 3594,
+  "measurement_types": {
+    "MIC": 599,
+    "ED50": 172,
+    "CC50": 5,
+    "IC50": 532,
+    "Antiviral activity": 15,
+    "VR": 23,
+    "MIC50": 123,
+    "Inhibition": 303,
+    "Virus rating": 42,
+    "TC50": 3,
+    "EC50": 1645,
+    "ID50": 71,
+    "Activity": 1149,
+    "ID99": 5,
+    "MCC": 68,
+    "MCC50": 6,
+    "Concentration": 9,
+    "Cytotoxicity": 8,
+    "EC90": 11,
+    "Selectivity index": 4,
+    "log10PFU": 6,
+    "Ratio EC50": 21,
+    "Ratio": 1,
+    "Emax": 1,
+    "TIME": 1,
+    "FC": 48,
+    "Ratio IC50": 2,
+    "MED50": 1,
+    "MID": 61
+  },
+  "caution": "Activity rows are not interchangeable with SI labels. Do not add to SI training data without matching IC50 and CC50, compatible assay conditions, validated structures, and competition leakage checks."
+}
