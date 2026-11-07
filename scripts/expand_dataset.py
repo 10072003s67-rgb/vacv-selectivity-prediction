@@ -85,14 +85,15 @@ def main():
     assert len(result)==len(base)+len(added)
     assert not set(added.SMILES.map(lambda s:structure(s)[1]))&excluded
     assert added['SI VACV'].fillna('').eq('').all()
-    # The published training table contains only SI labels and permitted inputs.
-    # CC50 and IC50 are used solely while auditing external measurements.
-    training_columns=['Title','strain','Culture','SMILES','SI VACV','source_id','label_quality']
-    training=result.loc[result['SI VACV'].notna() & result['SI VACV'].astype(str).str.strip().ne(''),training_columns].copy()
+    # Retain records with an allowed label; never publish prohibited measurements.
+    training_columns=[c for c in result.columns if c not in ('CC50_uM','IC50_uM_VACV')]
+    allowed_labels=['SI VACV','EC50_uM_VACV','Potency_uM_VACV']
+    useful=result[allowed_labels].notna() & result[allowed_labels].astype(str).apply(lambda c:c.str.strip().ne(''))
+    training=result.loc[useful.any(axis=1),training_columns].copy()
     training.to_csv(out/'vacv_training.csv',index=False)
     pd.DataFrame(provenance).to_csv(out/'reports/added_measurements.csv',index=False)
     oldkeys={structure(s)[1] for s in base.SMILES}
     newkeys={structure(s)[1] for s in added.SMILES}
-    report={'before_rows':len(base),'added_measurements':len(added),'after_rows':len(result),'training_rows':len(training),'training_columns':training_columns,'added_by_endpoint':pd.Series([r['endpoint'] for r in provenance]).value_counts().to_dict(),'new_molecules_connectivity':len(newkeys-oldkeys),'added_molecules_connectivity':len(newkeys),'new_si_labels':0,'excluded_competition_connectivities':len(excluded),'rdkit':rdBase.rdkitVersion,'base_url':BASE,'discovery_url':LEK,'base_sha256':hashlib.sha256(basepath.read_bytes()).hexdigest(),'discovery_sha256':hashlib.sha256(srcpath.read_bytes()).hexdigest(),'note':'The 50 measurements are retained for provenance only; they add no SI labels to the published training table. CC50 and IC50 are not training inputs.'}
+    report={'before_rows':len(base),'added_measurements':len(added),'after_rows':len(result),'training_rows':len(training),'training_columns':training_columns,'added_by_endpoint':pd.Series([r['endpoint'] for r in provenance]).value_counts().to_dict(),'new_molecules_connectivity':len(newkeys-oldkeys),'added_molecules_connectivity':len(newkeys),'new_si_labels':0,'excluded_competition_connectivities':len(excluded),'rdkit':rdBase.rdkitVersion,'base_url':BASE,'discovery_url':LEK,'base_sha256':hashlib.sha256(basepath.read_bytes()).hexdigest(),'discovery_sha256':hashlib.sha256(srcpath.read_bytes()).hexdigest(),'note':'All external records are retained. CC50 and IC50 measurement columns are excluded from the published table. The 50 added measurements create no new SI labels.'}
     (out/'reports/expansion.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()
