@@ -1,0 +1,20 @@
+{
+  "before_rows": 5735,
+  "added_measurements": 50,
+  "after_rows": 5785,
+  "added_by_endpoint": {
+    "CC50": 29,
+    "IC50": 20,
+    "EC50": 1
+  },
+  "new_molecules_connectivity": 7,
+  "added_molecules_connectivity": 30,
+  "new_si_labels": 0,
+  "excluded_competition_connectivities": 812,
+  "rdkit": "2024.09.6",
+  "base_url": "https://raw.githubusercontent.com/10072003s67-rgb/vacv-selectivity-prediction/ae1eb43b48a147a538bc82b8359381b959735b24/vacv_training.csv",
+  "discovery_url": "https://raw.githubusercontent.com/lenyagrigorenko/lek/f2c063fd70c5c427d09c6ef415bdeb38ed1320e6/data/external/vacv_external.csv",
+  "base_sha256": "698f8aa035d8c1e4250a9da89632ea32b1c804ea4cfbecd2e8c5e4fd1ef975d1",
+  "discovery_sha256": "ba2473bda20ef9c1c44f92420caabd6ada1f91e8638172105bc3ed35be306c58",
+  "note": "Added individually verified exact measurements. Different endpoints must be modelled separately. Existing rows are preserved; SI methods are not revalidated."
+}
