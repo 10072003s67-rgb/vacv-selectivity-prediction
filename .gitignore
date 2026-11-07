@@ -1,0 +1,6 @@
+.cache/
+__pycache__/
+.venv/
+train.csv
+test.csv
+sample_submit.csv
